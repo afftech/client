@@ -11,7 +11,7 @@ app.use(cors())
 
 app.post('/register', (req, res) => {
   res.send({
-    message: 'your user was registred!'
+    message: `${req.body.email} your user was registred!`
   })
 })
 app.listen(process.env.PORT || 8081)

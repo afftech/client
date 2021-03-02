@@ -1,7 +1,9 @@
-import  axios from 'axios'
+
+/* eslint-disable */
+import axios from 'axios'
 
 export default () =>{
-    return.axios.create({
-        baseURL:`http://127.0.0.1:8081/`
+    return axios.create({
+    baseURL: `http://localhost:8081/`
     })
 }

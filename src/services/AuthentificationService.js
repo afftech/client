@@ -1,12 +1,13 @@
-import Api from '@services/Api'
+import Api from '@/services/Api'
 
 export default{
-    register (credentails){
-        return.Api.post('register',credentails)
-    }
+  register (credentials) {
+    return Api().post('register', credentials)
+  }
 }
+
 /*
 AuthentificationService.register({
     email: 'andreiv135@gmail.com',
     password:'12345678'
-})*/
+}) */
