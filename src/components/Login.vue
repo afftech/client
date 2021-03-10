@@ -2,7 +2,7 @@
 <v-layout column>
 
     <div class="white elevation-2">
-        <h1>Register</h1>
+        <h1>Log in</h1>
       <div class="pl-4 pr-4 pt-2 pb-2">
        <input
       type="email"
@@ -18,7 +18,7 @@
       placeholder="password"
       />
   <div class="error" v-html="error"/>
-  <button @click="register">Register</button>
+  <button @click="login">Log in</button>
     </div>
 </div>
 </v-layout>
@@ -36,9 +36,9 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        await AuthentificationService.register({
+        await AuthentificationService.login({
           email: this.email,
           password: this.password
         })

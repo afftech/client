@@ -1,6 +1,6 @@
 module.exports = {
   portl: 8081,
-  db:{
+  db: {
     database: process.env.DB_NAME || 'users',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASS || '995637',
