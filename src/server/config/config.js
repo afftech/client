@@ -9,5 +9,8 @@ module.exports = {
       host: process.env.HOST || 'localhost'
     }
 
+  },
+  authenticationL: {
+    jwtSecret: process.env.JWT_SECRET || 'secret'
   }
 }
