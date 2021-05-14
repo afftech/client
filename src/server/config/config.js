@@ -14,3 +14,7 @@ module.exports = {
     jwtSecret: process.env.JWT_SECRET || 'secret'
   }
 }
+
+//Cтрока запуска  Mysql
+// mysql -u root -p 
+//пароль: 995637

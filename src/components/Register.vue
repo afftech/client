@@ -4,6 +4,8 @@
     <div class="white elevation-2">
         <h1>Register</h1>
       <div class="pl-4 pr-4 pt-2 pb-2">
+        <form
+        autocomplete="off">
        <input
       type="email"
       name="email"
@@ -16,7 +18,9 @@
       name="password"
       v-model="password"
       placeholder="password"
+      autocomplete="new-password"
       />
+        </form>
   <div class="error" v-html="error"/>
   <button @click="register">Register</button>
     </div>
@@ -38,10 +42,12 @@ export default {
   methods: {
     async register () {
       try {
-        await AuthentificationService.register({
+        const response = await AuthentificationService.register({
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
         this.error = error.response.data.error
       }

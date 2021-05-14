@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
 <v-layout column>
 
@@ -18,7 +19,13 @@
       placeholder="password"
       />
   <div class="error" v-html="error"/>
-  <button @click="login">Log in</button>
+
+  <!--v-if для выполнения действия восле входа -->
+  <button
+    v-if="!$store.state.isUserLoggedIn"
+    flat
+    dark
+   @click="login">Log in</button>
     </div>
 </div>
 </v-layout>
@@ -38,10 +45,12 @@ export default {
   methods: {
     async login () {
       try {
-        await AuthentificationService.login({
+        const response = await AuthentificationService.login({
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
         this.error = error.response.data.error
       }

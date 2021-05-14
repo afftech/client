@@ -15,7 +15,7 @@ require('./routes')(app)
 
 app.listen(process.env.PORT || 8081)
 
-sequelize.sync()
+sequelize.sync(/*{force: true} для очищения БД при каждом запуске!*/)
   .then(() => {
     app.listen(config.port)
     console.log(`Server started! ${config.port}`)
