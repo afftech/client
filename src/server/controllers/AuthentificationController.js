@@ -20,7 +20,7 @@ module.exports = {
      // console.log(user.toJSON())
     } catch (err) {
       res.status(400).send({
-        error: 'This email account is already in use.'
+        error: 'Эта учетная запись электронной почты уже существует.'
       })
     }
   },

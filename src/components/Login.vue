@@ -1,8 +1,13 @@
 /* eslint-disable */
 <template>
 <v-layout column>
-
-    <div class="white elevation-2">
+    <div v-if="$store.state.isUserLoggedIn">
+    <h4>Добро пожаловать мой друг в список контактов! </h4>
+    </div>
+    <div v-if="!$store.state.isUserLoggedIn"
+    flat
+    dark
+    class="white elevation-2">
         <h1>Log in</h1>
       <div class="pl-4 pr-4 pt-2 pb-2">
        <input
@@ -22,9 +27,6 @@
 
   <!--v-if для выполнения действия восле входа -->
   <button
-    v-if="!$store.state.isUserLoggedIn"
-    flat
-    dark
    @click="login">Log in</button>
     </div>
 </div>

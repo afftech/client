@@ -3,6 +3,10 @@ const Joi = require('joi')
 module.exports = {
   register (req, res, next) {
     const schema = Joi.object({
+      name: Joi.string(),
+      surname:Joi.string(),
+      patronymic:Joi.string(),
+      phoneNumber:Joi.string(),
       email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } }),
       password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/)
     })

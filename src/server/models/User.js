@@ -15,9 +15,19 @@ async function hashPassword (user, option) {
     });
 })
 }
+          name: this.name,
+          surname: this.surname,
+          patronymic: this.patronymic,
+          phoneNumber: this.phoneNumber,
+          email: this.email,
+          password: this.password,
 */
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    name: DataTypes.STRING,
+    surname:DataTypes.STRING,
+    patronymic:DataTypes.STRING,
+    phoneNumber:DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
       unique: true
