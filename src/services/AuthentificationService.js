@@ -6,6 +6,9 @@ export default{
   },
   login (credentials) {
     return Api().post('login', credentials)
+  },
+  get_all_contacts (credentials) {
+    return Api().get('get_all_contacts', credentials)
   }
 }
 
