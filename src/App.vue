@@ -1,36 +1,33 @@
 <template>
   <div id="app">
     <div class="container" v-if="!$store.state.isUserLoggedIn">
-      <h3 class="panel-title">Log in</h3>
-      <v-layout
-        flat
-        dark
-        class="white elevation-2"
-        column
-      >
-        <div>
-          <div class="pl-4 pr-4 pt-2 pb-2">
-            <b-form-input
-              type="email"
-              name="email"
-              v-model="email"
-              placeholder="email"
-            />
-            <br />
-            <b-form-input
-              type="password"
-              name="password"
-              v-model="password"
-              placeholder="password"
-            />
-            <br />
-            <div class="error" v-html="error" />
-            <br />
-            <!--v-if для выполнения действия восле входа -->
-            <b-button @click="login" variant="primary">Log in</b-button>
+      <div class="login">
+        <h3 class="panel-title">Log in</h3>
+        <v-layout flat dark class="white elevation-2" column>
+          <div>
+            <div class="pl-4 pr-4 pt-2 pb-2">
+              <b-form-input
+                type="email"
+                name="email"
+                v-model="email"
+                placeholder="email"
+              />
+              <br />
+              <b-form-input
+                type="password"
+                name="password"
+                v-model="password"
+                placeholder="password"
+              />
+              <br />
+              <div class="error" v-html="error" />
+              <br />
+              <!--v-if для выполнения действия восле входа -->
+              <b-button @click="login" variant="primary">Log in</b-button>
+            </div>
           </div>
-        </div>
-      </v-layout>
+        </v-layout>
+      </div>
     </div>
     <router-view v-if="$store.state.isUserLoggedIn" />
   </div>
@@ -79,3 +76,17 @@ export default {
   },
 };
 </script>
+<style scoped>
+.login{
+        position:absolute;
+        top:50%;
+        left:50%;
+  width: 600px;
+      background: rgb(215, 246, 247); /* Цвет фона */
+    outline: 2px solid #000; /* Чёрная рамка */
+    border: 4px solid #fff; /* Белая рамка */
+    border-radius: 10px; /* Радиус скругления */
+margin:-200px 0 0 -270px;
+ /* text-align: center;*/
+}
+</style>
