@@ -90,10 +90,5 @@ margin:-200px 0 0 -270px;
  /* text-align: center;*/
 }
 /*header style*/
-.header{
- background-image: url('../images/headerback.jpg');
- background-attachment: fixed;
- background-size: cover;
- background-position: center;
-}
+
 </style>
