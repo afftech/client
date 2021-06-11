@@ -2,7 +2,7 @@
   <div>
     <b-navbar type="dark" variant="dark">
       <b-navbar-nav>
-        <b-nav-item @click="navigateTo({name:'HelloWorld'})" href="#">Новости</b-nav-item>
+        <b-nav-item @click="navigateTo({name:'News'})" href="#">Новости</b-nav-item>
         <b-nav-item @click="navigateTo({name:'contacts'})" href="#">Контакты</b-nav-item>
         <b-nav-item v-if="$store.state.isUserLoggedIn" flat dark @click="logout()" href="#">Выход</b-nav-item>
       </b-navbar-nav>
@@ -10,11 +10,9 @@
   </div>
 </template>
 <script>
-import Contacts from "@/components/Contacts.vue";
+
 export default {
-  components: {
-    Contacts,
-  },
+  
   methods: {
     navigateTo(route) {
       this.$router.push(route);

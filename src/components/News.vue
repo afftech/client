@@ -2,25 +2,9 @@
   <div>
     <Header></Header>
     <div class="container">
-      <h1 class="text-center">Contacts++</h1>
+      <h1 class="text-center">Новостная лента</h1>
       <div class="row">
-        <div class="col-lg-2 col-md-6 col-sm-8" v-for="contact in contacts" :key="contact.id">
-          <div class="contact">
-                      <img
-            align="center"
-            class="img-fluid"
-            src="https://cdn.inflearn.com/public/files/posts/fb5e919f-9738-4001-a99c-5110a8ef7ebe/Vuejs_img4.jpg"
-          />
-          <figcaption><h5>Инженер Технолог</h5></figcaption>
-          <div>
-          <div class="col">{{ contact.surname }}</div>
-          <div class="col">{{ contact.name }}</div>
-          <div class="col">{{ contact.patronymic }}</div>
-          <div class="col">{{ contact.phoneNumber }}</div>
-          <div class="col">{{ contact.email }}</div>
-          </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -28,9 +12,9 @@
 
 <script>
 import Header from '@/components/Header';
-import AuthentificationService from "@/services/AuthentificationService";
+
 export default {
-  components:{'Header': Header},
+components:{'Header': Header},
   data() {
     return {
       contacts: null,
