@@ -91,4 +91,10 @@ margin:-200px 0 0 -270px;
 }
 /*header style*/
 
+
+</style>
+<style>
+html{
+  background: rgb(52, 57, 63); /* Цвет фона */
+}
 </style>

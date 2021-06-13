@@ -2,7 +2,13 @@
   <div>
     <Header></Header>
     <div class="container">
+       <br />
+      <br />
+      <br />
+      <br />
       <h1 class="text-center">Contacts++</h1>
+      <br />
+      <br />
       <div class="row">
         <div class="col-lg-2 col-md-6 col-sm-8" v-for="contact in contacts" :key="contact.id">
           <div class="contact">
