@@ -6,7 +6,7 @@ module.exports = {
             res.send(contacts)
         } catch (err) {
             res.status(500).send({
-                error: 'An error has occured trying to log in'
+                error: 'Ошибка получения списка'
             })
         }
     },

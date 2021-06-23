@@ -86,7 +86,7 @@ export default {
     outline: 2px solid #000; /* Чёрная рамка */
     border: 4px solid #fff; /* Белая рамка */
     border-radius: 10px; /* Радиус скругления */
-margin:-200px 0 0 -270px;
+margin:-200px 0 0 -150px;
  /* text-align: center;*/
 }
 /*header style*/

@@ -9,4 +9,3 @@ module.exports = (sequelize, DataTypes) => {
     
     return User
 }
-  //89112479002

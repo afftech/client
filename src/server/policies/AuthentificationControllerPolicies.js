@@ -1,12 +1,12 @@
 const Joi = require('joi')
 
 module.exports = {
-  register (req, res, next) {
+  register(req, res, next) {
     const schema = Joi.object({
       name: Joi.string(),
-      surname:Joi.string(),
-      patronymic:Joi.string(),
-      phoneNumber:Joi.string(),
+      surname: Joi.string(),
+      patronymic: Joi.string(),
+      phoneNumber: Joi.string(),
       email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } }),
       password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/)
     })
@@ -16,22 +16,22 @@ module.exports = {
       switch (value.error.details[0].context.key) {
         case 'email':
           res.status(400).send({
-            error: 'You must a valid provide email address'
+            error: 'Вы должны указать действительный адрес электронной почты'
           })
           break
 
         case 'password':
           res.status(400).send({
-            error: `The password provided filed to match the following rules:
+            error: `Предоставленный пароль не соответствовал следующим правилам:
                     <br>
-                    1.It must contain ONLY the following characters: LOVER CASE, UPPER CASE,
-                    <br> It must be at least 8 characters in lenght and not greater than characters in lenght.
+                    1.Он должен содержать ТОЛЬКО следующие символы: НИЖНИЙ РЕГИСТР, ВЕРХНИЙ РЕГИСТР,
+                    <br> Он должен быть длиной не менее 8 символов и не более символов.
                     `
           })
           break
         default:
           res.status(400).send({
-            error: 'Invalid registration information'
+            error: 'Неверная регистрационная информация'
           })
       }
     } else {

@@ -12,6 +12,10 @@ import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
 import 'vuetify/dist/vuetify.min.css'
 
+import VueParticles from 'vue-particles'
+
+Vue.use(VueParticles)
+
 Vue.use(Vuetify)
 
 
@@ -20,7 +24,7 @@ Vue.use(Vuetify)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue)//для добавления компонента BootstrapVue
 
 Vue.config.productionTip = false
 sync(store,router)
