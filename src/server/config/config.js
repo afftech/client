@@ -16,5 +16,7 @@ module.exports = {
 }
 
 //Cтрока запуска  Mysql
-// mysql -u root -p 
+// mysql -u root -p
 //пароль: 995637
+//SHOW DATABASES;
+//SELECT * FROM users;

@@ -5,7 +5,7 @@
       <br />
       <br />
       <br />
-      <h1 class="text-center">Новостная лента NSSZ</h1>
+      <h1 class="text-center">Лента новостей NSSZ</h1>
       <br />
       <br />
       <br />
@@ -254,15 +254,6 @@ import Header from "@/components/Header";
 
 export default {
   components: { Header: Header },
-  data() {
-    return {
-      contacts: null,
-    };
-  },
-  async mounted() {
-    this.contacts = (await AuthentificationService.get_all_contacts()).data;
-    console.log("songs", this.contacts);
-  },
 };
 </script>
 <style scoped>

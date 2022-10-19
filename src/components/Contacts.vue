@@ -1,6 +1,15 @@
 <template>
   <div class="background">
     <Header></Header>
+    {{ this.find_max(nums) }}
+    <template>
+      <Modal
+        v-if="showModal"
+        @close="showModal = falce"
+        v-bind:user="id"
+        @some-event="show()"
+      ></Modal>
+    </template>
     <div class="container">
       <br />
       <br />
@@ -11,7 +20,7 @@
         <div
           class="col-lg-2 col-md-6 col-sm-8"
           v-for="contact in contacts"
-          :key="contact.id"
+          v-bind:key="contact.id"
         >
           <div class="contact">
             <img align="center" class="img-fluid" src="@/assets/user.jpg" />
@@ -21,35 +30,76 @@
               <div class="col">{{ contact.name }}</div>
               <div class="col">{{ contact.patronymic }}</div>
               <div class="col">{{ contact.phoneNumber }}</div>
-              К
               <div class="col">{{ contact.email }}</div>
+              <div class="col">{{ contact.id }}</div>
+              <b-button id="show-modal" @click="openDialog(contact.id)"
+                >Редактировать</b-button
+              >
             </div>
           </div>
         </div>
       </div>
-
     </div>
+    {{ counter }}<br />
+
+    <button v-on:click="incrementCounter">Increment Counter</button>
+    <my-component v-on:increment-me="incrementCounter"></my-component>
+    <my-alert ref="childComponent" v-bind:AlertUserDelete="id"></my-alert>
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
+import Modal from "@/components/Modal";
 import AuthentificationService from "@/services/AuthentificationService";
 
 export default {
-  components: { Header: Header },
+  components: { Header: Header, Modal: Modal },
   data() {
     return {
       contacts: null,
-      ContactsAll: null,
+      showModal: null,
+      id: null,
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      counter: 0,
+      nums: [1, 2, 3, 4, 5, 6],
     };
   },
   async mounted() {
-    this.contacts = (await AuthentificationService.get_all_contacts()).data;
-    console.log("contacts", this.contacts);
-    this.ContactsAll = (await getFile('@/json/data.json'))
-    console.log("contactsAll", this.ContactsAll);
+    this.users_get();
+  },
+  methods: {
+    incrementCounter() {
+      this.counter++;
+    },
+    async users_get() {
+      this.contacts = (await AuthentificationService.get_all_contacts()).data;
+      console.log("contacts", this.contacts);
+    },
+    openDialog(id) {
+      this.id = id;
+      this.showModal = true; // явное управление диалогом через данные
+    },
+    show() {
+      console.log("Ф-ия вызвана")
+      //this.$refs.childComponent.showAlert()
+    },
 
+
+    find_max(nums) {
+      let max_num = Number.NEGATIVE_INFINITY; // меньше, чем все остальные числа
+      for (let num of nums) {
+        if (num > max_num) {
+          max_num = num;
+        }
+      }
+      return max_num;
+    },
+
+    /*Load_cont() {
+      //для загрузки актуального списка контактов
+    },*/
   },
 };
 </script>

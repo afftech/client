@@ -34,6 +34,7 @@
 </template>
 
 <script>
+
 export default {
   name: "App",
 };
@@ -90,11 +91,11 @@ margin:-200px 0 0 -150px;
  /* text-align: center;*/
 }
 /*header style*/
-
-
-</style>
-<style>
 html{
   background: rgb(52, 57, 63); /* Цвет фона */
 }
+
+</style>
+<style>
+
 </style>

@@ -4,6 +4,8 @@ import Register from '@/components/Register'
 import News from '@/components/News'
 import Header from '@/components/Header'
 import Contacts from '@/components/Contacts'
+import Modwind from '@/components/Modwind'
+
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +31,11 @@ export default new Router({
       path: '/News',
       name: 'News',
       component: News
+    },
+    {
+      path: '/Modwind',
+      name: 'Modwind',
+      component: Modwind
     }
   ]
 })

@@ -10,6 +10,43 @@ module.exports = {
             })
         }
     },
+    async user_get(req,res){
+        try{
+            const {id} = req.body
+            //const id = 1
+        const user = await User.findOne({
+            where: {
+              id: id
+            }
+          });
+        res.send(user)
+        //console.log(user.toJSON());
+        
+    } catch (err) {
+        res.status(500).send({
+          error: 'Произошла ошибка при попытке входа в систему'
+        })
+    }
+    },
+    
+  async user_delete (req, res) {
+    try {
+      console.log("Попытка удалить пользователя");
+      
+      const {id} = req.body
+      
+      const user =  await User.destroy({
+        where: {
+          id: id
+        }
+      })
+      console.log("Подьзователь удален");
+      } catch (err) {
+      res.status(500).send({
+        error: 'Произошла ошибка при удалении'
+      })
+    }
+  },
     async post(req, res) {
         try {
             const contact = await User.create(req.body)
