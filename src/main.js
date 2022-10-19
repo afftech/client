@@ -14,6 +14,10 @@ import 'vuetify/dist/vuetify.min.css'
 
 import VueParticles from 'vue-particles'
 
+import Alert from '../src/components/alert/alert.js'
+
+Vue.prototype.$Alert = Alert
+
 Vue.use(VueParticles)
 
 Vue.use(Vuetify)

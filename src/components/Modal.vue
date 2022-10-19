@@ -115,7 +115,9 @@ export default {
         var state = this.pressed("Вы действительно хотите удалить?");
         if (state) {
           this.$emit("close");
-          this.$emit('some-event')
+          this.$Alert.info({
+          content: "Пользователь " + this.contact.surname + " " + this.contact.name + " удалён"
+        });
           //await AuthentificationService.user_delete({ id: this.user });
         }
       } catch (error) {

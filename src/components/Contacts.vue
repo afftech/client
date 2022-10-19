@@ -40,6 +40,10 @@
         </div>
       </div>
     </div>
+    <div>
+    <button @click="handleOpen1">Открыть подсказку 1</button>
+    <button @click="handleOpen2">Открыть подсказку 2</button>
+  </div>
     {{ counter }}<br />
 
     <button v-on:click="incrementCounter">Increment Counter</button>
@@ -85,7 +89,6 @@ export default {
       console.log("Ф-ия вызвана")
       //this.$refs.childComponent.showAlert()
     },
-
 
     find_max(nums) {
       let max_num = Number.NEGATIVE_INFINITY; // меньше, чем все остальные числа
