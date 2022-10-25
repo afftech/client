@@ -1,3 +1,4 @@
+// Если меняется модель базы, то в политики обязательно надо добавть аналогичную запись!!!
 //const Promise = require('bluebird');
 const bcrypt = /*Promise.promisifyAll(*/require('bcrypt');
 const { date } = require('joi');
@@ -26,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     password:DataTypes.STRING,
+    avatar:DataTypes.STRING,
   }/*, {  // для подтягивакия крипто ф-ии хеширования пароля
     hooks: {
       beforeCreate: hashPassword,

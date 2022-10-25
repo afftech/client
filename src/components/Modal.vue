@@ -11,14 +11,21 @@
               variant="outline-primary"
               class="modal-default-button"
               @click="$emit('close')"
-            >закрыть</b-button>
+              >закрыть</b-button
+            >
           </div>
           <div class="modal-body">
-            <b-form-input v-model="contact.name" placeholder="имя" name="name">
+            <b-form-input
+              size="sm"
+              v-model="contact.name"
+              placeholder="имя"
+              name="name"
+            >
             </b-form-input>
           </div>
           <div class="modal-body">
             <b-form-input
+              size="sm"
               v-model="contact.surname"
               placeholder="фамилия"
               name="surname"
@@ -27,6 +34,7 @@
           </div>
           <div class="modal-body">
             <b-form-input
+              size="sm"
               v-model="contact.patronymic"
               placeholder="отчество"
               name="patronymic"
@@ -35,6 +43,7 @@
           </div>
           <div class="modal-body">
             <b-form-input
+              size="sm"
               v-model="contact.phoneNumber"
               placeholder="номер тел."
               name="phoneNumber"
@@ -43,6 +52,7 @@
           </div>
           <div class="modal-body">
             <b-form-input
+              size="sm"
               v-model="contact.email"
               placeholder="почта"
               name="mail"
@@ -51,6 +61,7 @@
           </div>
           <div class="modal-body">
             <b-form-input
+              size="sm"
               v-model="contact.password"
               placeholder="пароль"
               name="password"
@@ -59,14 +70,9 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <b-button
-                
-                class="modal-default-button"
-                @click="this.get_user"
-              >
-                Обновить
+              <b-button class="modal-default-button" @click="this.update_user">
+                Изменить
               </b-button>
-              <!--@click="$emit('close')"-->
               <b-button
                 variant="danger"
                 class="modal-default-button"
@@ -94,12 +100,43 @@ export default {
   },
   data() {
     return {
-      contact: null,
+      contact: {
+        email: null,
+        id: null,
+        name: null,
+        password: null,
+        patronymic: null,
+        phoneNumber: null,
+        surname: null,
+      },
       result_user: null,
       error: null,
     };
   },
   methods: {
+    async update_user() {
+      var state = this.message("Пользователь обновлён!");
+      if (state) {
+        this.$Alert.info({
+          content:
+            "Пользователь " +
+            this.contact.surname +
+            " " +
+            " " +
+            this.contact.name +
+            "обновлен",
+        });
+      }
+      const response = await AuthentificationService.user_update({
+        id: this.contact.id,
+        name: this.contact.name,
+        surname: this.contact.surname,
+        patronymic: this.contact.patronymic,
+        phoneNumber: this.contact.phoneNumber,
+        email: this.contact.email,
+        password: this.contact.password,
+      });
+    },
     async get_user() {
       try {
         this.contact = (
@@ -116,12 +153,19 @@ export default {
         if (state) {
           this.$emit("close");
           this.$Alert.info({
-          content: "Пользователь " + this.contact.surname + " " + this.contact.name + " удалён"
-        });
-          //await AuthentificationService.user_delete({ id: this.user });
+            content:
+              "Пользователь " +
+              this.contact.surname +
+              " " +
+              this.contact.name +
+              " удален",
+          });
+          const response = await AuthentificationService.user_delete({
+            id: this.user,
+          });
         }
       } catch (error) {
-        console.log("При удалении пользователя произошла  ошибка");
+        console.log("При удалении пользователя произошла  ошибка:" + error);
       }
     },
   },
@@ -134,7 +178,7 @@ export default {
 <style scoped>
 .modal-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 800;
   top: 0;
   left: 0;
   width: 100%;
@@ -150,7 +194,7 @@ export default {
 }
 
 .modal-container {
-  width: 500px;
+  max-width: 500px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

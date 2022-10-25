@@ -12,6 +12,10 @@ import { sync } from 'vuex-router-sync'
 import store from '@/store/store'
 import 'vuetify/dist/vuetify.min.css'
 
+import axios from 'axios'
+
+Vue.prototype.axios = axios
+
 import VueParticles from 'vue-particles'
 
 import Alert from '../src/components/alert/alert.js'
@@ -90,6 +94,11 @@ Vue.mixin({
   methods: {
     pressed(val) {
       if (confirm(val)) {
+        return true
+      }
+    },
+    message(val){
+      if (alert(val)) {
         return true
       }
     }

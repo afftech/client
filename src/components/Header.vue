@@ -1,9 +1,8 @@
 <template>
   <div>
     <div>
-      <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar toggleable="lg"  type="dark" variant="dark">
         <b-navbar-brand href="#">Contacts++</b-navbar-brand>
-
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
@@ -12,13 +11,8 @@
             <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <em>Пользователь</em>
+                <em>{{GET_EMAIL}}</em>
               </template>
-              <b-dropdown-item
-                @click="navigateTo({ name: 'register' })"
-                href="#"
-                >Создать контакт</b-dropdown-item
-              >
               <b-dropdown-item
                 v-if="$store.state.isUserLoggedIn"
                 flat
@@ -52,6 +46,7 @@
   </div>
 </template>
 <script>
+import {mapActions,mapGetters} from "vuex";
 export default {
   methods: {
     navigateTo(route) {
@@ -59,10 +54,15 @@ export default {
     },
     logout() {
       this.$store.dispatch("setToken", null);
-      this.$store.dispatch("setUser", null);
     },
+
   },
-  setup() {},
+  computed:{//вычисляемое свойство для  получения данных из VUEX
+    ...mapGetters([
+      'GET_EMAIL'
+    ])
+  }
+
 };
 </script>
 <style>

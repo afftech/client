@@ -17,6 +17,7 @@ export default {
 </script>
 <style>
 .alert {
+  z-index: 9998;
   position: fixed;
   width: 100%;
   top: 16px;
@@ -64,7 +65,7 @@ export default {
       const duration = notice.duration;
       setTimeout(() => {
         this.remove(name);
-      }, duration * 15000);
+      }, duration * 10000);
     },
     remove(name) {
       const notices = this.notices;

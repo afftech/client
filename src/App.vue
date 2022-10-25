@@ -1,101 +1,157 @@
 <template>
   <div id="app">
-    <div class="container" v-if="!$store.state.isUserLoggedIn">
-      <div class="login">
-        <h3 class="panel-title">Log in</h3>
-        <v-layout flat dark class="white elevation-2" column>
-          <div>
-            <div class="pl-4 pr-4 pt-2 pb-2">
-              <b-form-input
-                type="email"
-                name="email"
-                v-model="email"
-                placeholder="email"
-              />
-              <br />
-              <b-form-input
-                type="password"
-                name="password"
-                v-model="password"
-                placeholder="password"
-              />
-              <br />
-              <div class="error" v-html="error" />
-              <br />
-              <!--v-if для выполнения действия восле входа -->
-              <b-button @click="login" variant="primary">Log in</b-button>
+    <transition v-if="!$store.state.isUserLoggedIn" name="modal">
+      <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+            <div class="modal-header">
+              <p name="header">Авторизуйтесь:</p>
             </div>
+            <div class="modal-body">
+              <b-form-input
+                size="sm"
+                v-model="email"
+                placeholder="почта"
+                name="mail"
+              >
+              </b-form-input>
+            </div>
+            <div class="modal-body">
+              <b-form-input
+                size="sm"
+                v-model="password"
+                placeholder="пароль"
+                name="password"
+              >
+              </b-form-input>
+            </div>
+            <div class="modal-footer">
+              <slot name="footer">
+                <b-button class="modal-default-button" @click="login">
+                  Вход
+                </b-button>
+              </slot>
+            </div>
+            <div class="error" v-html="error" />
           </div>
-        </v-layout>
+        </div>
       </div>
-    </div>
+    </transition>
+
     <router-view v-if="$store.state.isUserLoggedIn" />
   </div>
 </template>
 
 <script>
-
 export default {
   name: "App",
 };
 </script>
 
-<!--<style>
-Для всех вложенных страниц
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>-->
 <script>
 import AuthentificationService from "@/services/AuthentificationService";
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
       email: "",
       password: "",
-      error: "null",
+      error: "",
     };
   },
   methods: {
+    ...mapActions(["setToken", "setEmail"]),
     async login() {
       try {
         const response = await AuthentificationService.login({
           email: this.email,
           password: this.password,
         });
-        this.$store.dispatch("setToken", response.data.token);
-        this.$store.dispatch("setUser", response.data.user);
+        this.setToken(response.data.token);
+        this.setEmail(response.data.email);
       } catch (error) {
         this.error = error.response.data.error;
       }
     },
+    mounted() {},
+  },
+  showModal() {
+    this.$refs["my-modal"].show();
+  },
+  hideModal() {
+    this.$refs["my-modal"].hide();
+  },
+  toggleModal() {
+    // We pass the ID of the button that we want to return focus to
+    // when the modal has hidden
+    this.$refs["my-modal"].toggle("#toggle-btn");
   },
 };
 </script>
+
 <style scoped>
-.login{
-        position:absolute;
-        top:50%;
-        left:50%;
-  width: 600px;
-      background: rgb(215, 246, 247); /* Цвет фона */
-    outline: 2px solid #000; /* Чёрная рамка */
-    border: 4px solid #fff; /* Белая рамка */
-    border-radius: 10px; /* Радиус скругления */
-margin:-200px 0 0 -150px;
- /* text-align: center;*/
-}
-/*header style*/
-html{
-  background: rgb(52, 57, 63); /* Цвет фона */
+.modal-mask {
+  position: fixed;
+  z-index: 800;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
 }
 
-</style>
-<style>
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
 
+.modal-container {
+  max-width: 500px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 0 0;
+}
+
+.modal-default-button {
+  float: right;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
 </style>

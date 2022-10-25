@@ -3,32 +3,47 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import AuthentificationService from "@/services/AuthentificationService";
+
 export default new Vuex.Store({
     strict: true,
-    state:{
+    state: {
         token: null,
-        user: null,
-        isUserLoggedIn: false
+        email: null,
+        isUserLoggedIn: false,
+        products: [],
     },
-    mutations:{
-        setToken (state,token){
-            state.token=token
-            if(token){
+    mutations: {
+        setEmail(state, email) {
+            state.email = email
+        },
+        setToken(state, token) {
+            state.token = token
+            if (token) {
                 state.isUserLoggedIn = true
-            }else{
+            } else {
                 state.isUserLoggedIn = false
             }
         },
-        setUser(state,user){
-            state.user=user
+        setContacts(state,contacts){
+            state.token = contacts
         }
     },
-    actions:{
-        setToken({commit},token){
-            commit('setToken',token)
+    actions: {
+        setToken({ commit }, token) {
+            commit('setToken', token)
         },
-        setUser({commit},user){
-            commit('setUser',user)
+        setEmail({ commit },email) {
+            commit('setEmail',email)
+        },
+        setContacts(state,contacts)
+        {
+            this.commit('setContacts',contacts)
+        }
+    },
+    getters: {
+        GET_EMAIL(state) {
+            return state.email
         }
     }
 })

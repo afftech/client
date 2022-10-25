@@ -8,6 +8,7 @@ module.exports = {
       patronymic: Joi.string(),
       phoneNumber: Joi.string(),
       email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } }),
+      avatar: Joi.string(),
       password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/)
     })
     const value = schema.validate(req.body)

@@ -1,21 +1,30 @@
 <template>
   <div class="background">
     <Header></Header>
-    {{ this.find_max(nums) }}
     <template>
       <Modal
         v-if="showModal"
         @close="showModal = falce"
         v-bind:user="id"
-        @some-event="show()"
       ></Modal>
     </template>
+    <br />
+    <br />
+    <div class="container">
+      <b-button
+        variant="outline-primary"
+        id="show-modal"
+        @click="showReg = true"
+        >Создать нового пользователя</b-button
+      >
+    </div>
     <div class="container">
       <br />
       <br />
       <h1 class="text-center">Contacts++</h1>
       <br />
       <br />
+     
       <div class="row">
         <div
           class="col-lg-2 col-md-6 col-sm-8"
@@ -23,7 +32,7 @@
           v-bind:key="contact.id"
         >
           <div class="contact">
-            <img align="center" class="img-fluid" src="@/assets/user.jpg" />
+            <img align="center" class="img-fluid" :src="piblic_link+contact.avatar">
             <figcaption><h5>Ведущий Инженер</h5></figcaption>
             <div>
               <div class="col">{{ contact.surname }}</div>
@@ -40,44 +49,51 @@
         </div>
       </div>
     </div>
-    <div>
-    <button @click="handleOpen1">Открыть подсказку 1</button>
-    <button @click="handleOpen2">Открыть подсказку 2</button>
-  </div>
-    {{ counter }}<br />
-
-    <button v-on:click="incrementCounter">Increment Counter</button>
-    <my-component v-on:increment-me="incrementCounter"></my-component>
-    <my-alert ref="childComponent" v-bind:AlertUserDelete="id"></my-alert>
+    <template>
+      <register v-if="showReg" @close="showReg = falce"></register>
+    </template>
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
-import Modal from "@/components/Modal";
-import AuthentificationService from "@/services/AuthentificationService";
+import Modal from "@/components/Modal"; //Модальное окно для изменения и удаления пользователя
+import AuthentificationService from "@/services/AuthentificationService"; // Api для получения списка контактов
+import Register from "./Register.vue"; // форма регистрации пользователей
 
 export default {
-  components: { Header: Header, Modal: Modal },
+  components: { Header: Header, Modal: Modal, Register: Register },
   data() {
     return {
       contacts: null,
       showModal: null,
+      showReg: null,
       id: null,
       dismissSecs: 5,
       dismissCountDown: 0,
       counter: 0,
       nums: [1, 2, 3, 4, 5, 6],
+      piblic_link: "http://193.169.63.222:8081/"
     };
   },
-  async mounted() {
+  mounted() {
+    // зпуск асинхронного метода получения списк контактов
     this.users_get();
   },
+  watch:{//обновление списка
+  showReg(){
+    this.users_get() 
+  },
+  showModal(){
+    this.users_get() 
+  }
+  },
   methods: {
-    incrementCounter() {
-      this.counter++;
+    update_users() {
+      this.users_get();
     },
     async users_get() {
+      //метод получения списка контактов из API
       this.contacts = (await AuthentificationService.get_all_contacts()).data;
       console.log("contacts", this.contacts);
     },
@@ -85,12 +101,9 @@ export default {
       this.id = id;
       this.showModal = true; // явное управление диалогом через данные
     },
-    show() {
-      console.log("Ф-ия вызвана")
-      //this.$refs.childComponent.showAlert()
-    },
 
     find_max(nums) {
+      //можно удалить
       let max_num = Number.NEGATIVE_INFINITY; // меньше, чем все остальные числа
       for (let num of nums) {
         if (num > max_num) {
@@ -99,10 +112,6 @@ export default {
       }
       return max_num;
     },
-
-    /*Load_cont() {
-      //для загрузки актуального списка контактов
-    },*/
   },
 };
 </script>

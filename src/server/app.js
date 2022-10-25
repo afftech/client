@@ -5,12 +5,14 @@ const morgan = require('morgan')
 const config = require('./config/config')
 const {sequelize} = require('./models')
 
+
+
 const app = express()
 
 app.use(morgan('combine'))
 app.use(bodyParser.json())
 app.use(cors())
-
+app.use(express.static(__dirname + '/public/uploads'))
 require('./routes')(app)
 
 app.listen(process.env.PORT || 8081)
