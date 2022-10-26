@@ -33,14 +33,13 @@
         >
           <div class="contact">
             <img align="center" class="img-fluid" :src="piblic_link+contact.avatar">
-            <figcaption><h5>Ведущий Инженер</h5></figcaption>
+          <!-- <figcaption><h5>Ведущий Инженер</h5></figcaption>-->
             <div>
               <div class="col">{{ contact.surname }}</div>
               <div class="col">{{ contact.name }}</div>
               <div class="col">{{ contact.patronymic }}</div>
               <div class="col">{{ contact.phoneNumber }}</div>
               <div class="col">{{ contact.email }}</div>
-              <div class="col">{{ contact.id }}</div>
               <b-button id="show-modal" @click="openDialog(contact.id)"
                 >Редактировать</b-button
               >

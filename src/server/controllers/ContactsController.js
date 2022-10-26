@@ -19,11 +19,10 @@ module.exports = {
           id: id
         }
       });
-      res.send("Польхователь "+id+ "удален")
-
+      res.send(user)
     } catch (err) {
       res.status(500).send({
-        error: 'Произошла ошибка при попытке входа в систему'
+        error: 'Произошла ошибка при получении данных'
       })
     }
   },
@@ -39,6 +38,7 @@ module.exports = {
           id: id
         }
       })
+      res.send("Подьзователь удален")
       console.log("Подьзователь удален");
     } catch (err) {
       res.status(500).send({
