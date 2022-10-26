@@ -57,7 +57,8 @@ module.exports = {
         patronymic: contact.patronymic,
         phoneNumber: contact.phoneNumber,
         email: contact.email,
-        password: contact.password
+        password: contact.password,
+        avatar: contact.avatar
       }, {
         where: {
           id: contact.id

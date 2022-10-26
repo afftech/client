@@ -68,6 +68,22 @@
             >
             </b-form-input>
           </div>
+          <input
+            type="file"
+            id="file"
+            ref="file"
+            accept="image/*"
+            v-on:change="handleFileUpload()"
+          />
+          <img
+            v-if="!imagePreview"
+            class="img-send"
+            v-bind:src="piblic_link + contact.avatar"
+          /><img
+            class="img-send"
+            v-bind:src="imagePreview"
+            v-show="showPreview"
+          />
           <div class="modal-footer">
             <slot name="footer">
               <b-button class="modal-default-button" @click="this.update_user">
@@ -108,12 +124,58 @@ export default {
         patronymic: null,
         phoneNumber: null,
         surname: null,
+        avatar: null,
       },
+      piblic_link: "http://193.169.63.222:8081/",
       result_user: null,
       error: null,
+      //Работа с  изображением
+      file: "",
+      showPreview: false,
+      imagePreview: "",
     };
   },
   methods: {
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+      let reader = new FileReader();
+      reader.addEventListener(
+        "load",
+        function () {
+          this.showPreview = true;
+          this.imagePreview = reader.result;
+        }.bind(this),
+        false
+      );
+      this.avatar = this.file.name;
+      if (this.file) {
+        if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
+          reader.readAsDataURL(this.file);
+        }
+      }
+    },
+    send_img() {
+      try {
+        let formData = new FormData();
+        formData.append("image", this.file);
+
+        console.log(formData.get(`image`));
+        this.axios
+          .post("http://193.169.63.222:8081/avatar", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then(() => {
+            this.$emit("close");
+          });
+      } catch (error) {
+        this.$Alert.info({
+          content: "Проблема с загрузкой фото",
+        });
+        this.error = error.response.data.error;
+      }
+    },
     async update_user() {
       var state = this.message("Пользователь обновлён!");
       if (state) {
@@ -135,6 +197,9 @@ export default {
         phoneNumber: this.contact.phoneNumber,
         email: this.contact.email,
         password: this.contact.password,
+        avatar: this.avatar,
+      }).then(() => {
+        send_img();
       });
     },
     async get_user() {
@@ -192,7 +257,10 @@ export default {
   display: table-cell;
   vertical-align: middle;
 }
-
+.img-send {
+  max-height: 100px;
+  max-width: 100px;
+}
 .modal-container {
   max-width: 500px;
   margin: 0px auto;
